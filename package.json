@@ -1,5 +1,5 @@
 {
-  "name": "sequelize-auto-migrations-fk",
+  "name": "sequelize-auto-migrations-ng",
   "version": "2.2.0",
   "description": "Sequelize migrations generator",
   "main": "index.js",
@@ -34,8 +34,6 @@
     "sequelize": "^4.3.2"
   },
   "devDependencies": {
-    "eslint": "^4.18.2",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0"
+    "eslint": "^4.18.2"
   }
 }

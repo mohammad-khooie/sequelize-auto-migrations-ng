@@ -1,5 +1,4 @@
 #!/bin/node
-
 const commandLineArgs = require( "command-line-args" );
 const beautify = require( "js-beautify" ).js_beautify;
 const Sequelize = require( "sequelize" );
@@ -34,7 +33,6 @@ const optionDefinitions = [
         "name": "help", "alias": "h", "type": Boolean, "description": "Show this message"
     }
 ];
-
 const options = commandLineArgs( optionDefinitions );
 
 if ( options.help ) {
@@ -45,29 +43,21 @@ if ( options.help ) {
     } );
     process.exit( 0 );
 }
-
 const migrationsDir = path.join( process.env.PWD || process.cwd(), options[ "migrations-path" ] || "migrations" );
 const modelsDir = path.join( process.env.PWD || process.cwd(), options[ "models-path" ] || "models" );
-
-// current state
 const currentState = {
     "tables": {}
 };
-
-// load last state
 let previousState = {
     "revision": 0,
     "version": 1,
     "tables": {}
 };
-
-
-const { sequelize } = require( modelsDir ); /* eslint import/no-dynamic-require: off */
+const { sequelize } = require( modelsDir );
 
 if ( !options.debug ) {
     sequelize.options.logging = false;
 }
-
 const queryInterface = require( modelsDir ).sequelize.getQueryInterface();
 const { models } = sequelize;
 
@@ -104,32 +94,25 @@ queryInterface.createTable( "SequelizeMeta", {
                         if ( lastMigration !== undefined ) {
                             previousState = lastMigration.state;
                         }
-
                         currentState.tables = migrate.reverseModels( sequelize, models );
-
                         const actions = migrate.parseDifference( previousState.tables, currentState.tables );
-
                         const downActions = migrate.parseDifference( currentState.tables, previousState.tables );
 
                         // sort actions
                         migrate.sortActions( actions );
                         migrate.sortActions( downActions );
-
                         const migration = migrate.getMigration( actions );
                         const tmp = migrate.getMigration( downActions );
 
                         migration.commandsDown = tmp.commandsUp;
-
                         if ( migration.commandsUp.length === 0 ) {
                             console.log( "No changes found" );
                             process.exit( 0 );
                         }
-
                         // log migration actions
                         _.each( migration.consoleOut, ( v ) => {
                             console.log( `[Actions] ${v}` );
                         } );
-
                         if ( options.preview ) {
                             console.log( "Migration result:" );
                             console.log( beautify( `[ \n${migration.commandsUp.join( ", \n" )} \n];\n` ) );
@@ -137,10 +120,8 @@ queryInterface.createTable( "SequelizeMeta", {
                             console.log( beautify( `[ \n${migration.commandsDown.join( ", \n" )} \n];\n` ) );
                             process.exit( 0 );
                         }
-
                         // Bump revision
                         currentState.revision = previousState.revision + 1;
-
                         migrate.pruneOldMigFiles( currentState.revision, migrationsDir, options ).then( () => {
                             // write migration to file
                             const info = migrate.writeMigration(
@@ -152,7 +133,6 @@ queryInterface.createTable( "SequelizeMeta", {
                             );
 
                             console.log( `New migration to revision ${currentState.revision} has been saved to file '${info.filename}'` );
-
                             // save current state
                             // Ugly hack, see https://github.com/sequelize/sequelize/issues/8310
                             const rows = [ {

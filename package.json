@@ -1,14 +1,14 @@
 {
-  "name": "sequelize-auto-migrations-ng",
-  "version": "2.2.0",
-  "description": "Sequelize migrations generator",
+  "name": "sequelize-easy-migrator",
+  "version": "1.0.0",
+  "description": "sequelize migrations generator forked from sequelize-auto-migrations-ng with bug fixes and focus on be usable",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manuelvillar/sequelize-auto-migrations-ng.git"
+    "url": "git+https://github.com/mohammad-khooie/sequelize-easy-migrator"
   },
   "keywords": [
     "sequelize",
@@ -18,12 +18,12 @@
     "db",
     "sql"
   ],
-  "author": "Manuel Villar Guijarro",
+  "author": "Farid khooie",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/manuelvillar/sequelize-auto-migrations-ng/issues"
+    "url": "https://github.com/mohammad-khooie/sequelize-easy-migrator/issues"
   },
-  "homepage": "https://github.com/manuelvillar/sequelize-auto-migrations-ng#readme",
+  "homepage": "https://github.com/mohammad-khooie/sequelize-easy-migrator#readme",
   "dependencies": {
     "async": "^2.5.0",
     "command-line-args": "^4.0.6",
